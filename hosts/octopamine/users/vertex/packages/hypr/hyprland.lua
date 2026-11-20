@@ -1,16 +1,16 @@
 -- Display Configuration
 hl.monitor({
-    output = "DP-2"
-    mode = "preferred"
-    position = "0x0"
-    scale = 1
+    output = "DP-2",
+    mode = "preferred",
+    position = "0x0",
+    scale = 1,
 })
 hl.monitor({
-    output = "HDMI-A-1"
-    mode = "preferred"
-    position = "auto-left"
-    scale = 1
-    transform = 1
+    output = "HDMI-A-1",
+    mode = "preferred",
+    position = "auto-left",
+    scale = 1,
+    transform = 1,
 })
 
 --Environment Variables

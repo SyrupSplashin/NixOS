@@ -1,22 +1,17 @@
-{ config, pkgs, hostName ? config.networking.hostName, ... }:
-
-let
-  commonLuaPath = /etc/nixos/common/users/vertex/packages/hypr/hyprland.lua;
-  deviceLuaPath = /etc/nixos/hosts/${hostName}/users/vertex/packages/hypr/hyprland.lua;
-in
+{ ... }:
 {
-  wayland.windowManager.hyprland.enable = true; # enable Hyprland
+  wayland.windowManager.hyprland = {
+    enable = true;
+    configType = "lua";
+    extraConfig = ''
+      -- Load base configuration
+      require("common")
 
-  # Link the source files into .config/hypr/
-  home.file.".config/hypr/common.lua".source = commonLuaPath;
-  home.file.".config/hypr/device.lua".source = deviceLuaPath;
+      -- Load host/device overrides
+      require("device")
+    '';
+  };
 
-  # Entrypoint file that Hyprland reads
-  home.file.".config/hypr/hyprland.lua".text = ''
-    -- Load base configuration
-    dofile(os.getenv("HOME") .. "/.config/hypr/common.lua")
-
-    -- Load host/device overrides
-    dofile(os.getenv("HOME") .. "/.config/hypr/device.lua")
-  '';
+  # Link the common Lua configuration into ~/.config/hypr/
+  xdg.configFile."hypr/common.lua".source = ./hyprland.lua;
 }

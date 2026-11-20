@@ -37,8 +37,9 @@ hl.window_rule({
 })
 hl.window_rule({
     match = {
-        initial_titel = "Friends list"
-    }, float = true
+        initial_title = "Friends list",
+    },
+    float = true,
 })
 hl.window_rule({
     -- Fix some dragging issues with XWayland
@@ -97,19 +98,6 @@ hl.animation({ leaf = "workspacesIn",  enabled = true,  speed = 1.21, bezier = "
 hl.animation({ leaf = "workspacesOut", enabled = true,  speed = 1.94, bezier = "almostLinear", style = "fade" })
 hl.animation({ leaf = "zoomFactor",    enabled = true,  speed = 7,    bezier = "quick" })
 
--- --------------------------- --
--- General Configuration Items --
--- --------------------------- --
-hl.config({
-    master = {
-        new_status = "master",
-    },
-    misc = {
-        force_default_wallpaper = 0,    -- Set to 0 or 1 to disable the anime mascot wallpapers
-        disable_hyprland_logo   = true, -- If true disables the random hyprland logo / anime girl background. :(
-    },
-})
-
 -- -------- --
 -- Keybinds --
 -- -------- --
@@ -117,38 +105,38 @@ local mainMod = "SUPER"
 local terminal = "kitty"
 local menu = "rofi -show drun"
 
-hl.bind(mainmod .. " + RETURN ", hl.dsp.exec_cmd(terminal)) -- Launch terminal
-hl.bind(mainmod .. " + W ", hl.dsp.window.close) -- Close window
-hl.bind(mainmod .. " + R ", hl.dsp.exec_cmd(menu)) -- Launch Rofi
+hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal)) -- Launch terminal
+hl.bind(mainMod .. " + W", hl.dsp.window.close()) -- Close window
+hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu)) -- Launch Rofi
 
-hl.bind(mainmod .. " + CONTROL + Q ", ) -- WORK IN PROGRESS, CONFIGURE HYPRSHUTDOWN
+hl.bind(mainMod .. " + CTRL + Q", hl.dsp.exit()) -- TODO: switch to hyprshutdown once configured
 
-hl.bind(mainmod .. " + GRAVE ", hl.dsp.exec_cmd("hyprlock")) -- Hyprlock
-hl.bind(mainmod .. " + SHIFT + GRAVE ", hl.dsp.exec_cmd("systemctl suspend")) -- Suspend
-hl.bind(mainmod .. " + SHIFT + Q ", hl.dsp.exec_cmd("systemctl hibernate")) -- Hibernate
-hl.bind(mainmod .. " + F ", hl.dsp.window.float({ action = "toggle"})) -- Float toggle
-hl.bind(mainmod .. " + CONTROL + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle"})) -- Fullscreen Toggle
-hl.bind(mainmod .. " + V", hl.dsp.exec_cmd("cliphist list | rofi -demu | cliphist decode | wl-copy"))
-hl.bind(mainmod .. " + semicolon", hl.dsp.exec_cmd("rofimoji -a copy"))
+hl.bind(mainMod .. " + GRAVE", hl.dsp.exec_cmd("hyprlock")) -- Hyprlock
+hl.bind(mainMod .. " + SHIFT + GRAVE", hl.dsp.exec_cmd("systemctl suspend")) -- Suspend
+hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exec_cmd("systemctl hibernate")) -- Hibernate
+hl.bind(mainMod .. " + F", hl.dsp.window.float({ action = "toggle" })) -- Float toggle
+hl.bind(mainMod .. " + CTRL + F", hl.dsp.window.fullscreen({ mode = "fullscreen", action = "toggle" })) -- Fullscreen toggle
+hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("cliphist list | rofi -dmenu | cliphist decode | wl-copy"))
+hl.bind(mainMod .. " + semicolon", hl.dsp.exec_cmd("rofimoji -a copy"))
 hl.bind("Print", hl.dsp.exec_cmd("grimblast copy area"))
 
 -- Move focus with mainMod + {H,J,K,L}
-hl.bind(mainMod .. " + h",  hl.dsp.focus({ direction = "left" }))
+hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
-hl.bind(mainMod .. " + k",    hl.dsp.focus({ direction = "up" }))
-hl.bind(mainMod .. " + j",  hl.dsp.focus({ direction = "down" }))
+hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
+hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
 
 -- Move window with mainMod + Shift + {H,J,K,L}
-hl.bind(mainMod .. " + SHIFT + h",  hl.dsp.window.move({ direction = "left" }))
+hl.bind(mainMod .. " + SHIFT + h", hl.dsp.window.move({ direction = "left" }))
 hl.bind(mainMod .. " + SHIFT + l", hl.dsp.window.move({ direction = "right" }))
-hl.bind(mainMod .. " + SHIFT + k",    hl.dsp.window.move({ direction = "up" }))
-hl.bind(mainMod .. " + SHIFT + j ",  hl.dsp.window.move({ direction = "down" }))
+hl.bind(mainMod .. " + SHIFT + k", hl.dsp.window.move({ direction = "up" }))
+hl.bind(mainMod .. " + SHIFT + j", hl.dsp.window.move({ direction = "down" }))
 
--- Resize window with mainmod + Control + {H,J,K,L}
-hl.bind(mainMod .. " + Control + h",  hl.dsp.window.resize({-25, 0}))
-hl.bind(mainMod .. " + Control + l", hl.dsp.window.resize({25, 0}))
-hl.bind(mainMod .. " + Control + k",    hl.dsp.window.resize({0, -25}))
-hl.bind(mainMod .. " + Control + j ",  hl.dsp.window.resize({0, 25}))
+-- Resize window with mainMod + CTRL + {H,J,K,L}
+hl.bind(mainMod .. " + CTRL + h", hl.dsp.window.resize({ x = -25, y = 0, relative = true }), { repeating = true })
+hl.bind(mainMod .. " + CTRL + l", hl.dsp.window.resize({ x = 25, y = 0, relative = true }), { repeating = true })
+hl.bind(mainMod .. " + CTRL + k", hl.dsp.window.resize({ x = 0, y = -25, relative = true }), { repeating = true })
+hl.bind(mainMod .. " + CTRL + j", hl.dsp.window.resize({ x = 0, y = 25, relative = true }), { repeating = true })
 
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]

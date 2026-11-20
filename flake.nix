@@ -82,7 +82,7 @@
               home-manager.extraSpecialArgs = { inherit nixvim; };
               home-manager.users.vertex = {
                 imports = [
-                  ./hosts/neuronix/users/vertex/home.nix
+                  ./hosts/graviton/users/vertex/home.nix
                 ];
               };
             }
@@ -102,7 +102,7 @@
               home-manager.extraSpecialArgs = { inherit nixvim; };
               home-manager.users.vertex = {
                 imports = [
-                  ./hosts/graviton/users/vertex/home.nix
+                  ./hosts/neuronix/users/vertex/home.nix
                 ];
               };
             }
